@@ -8,7 +8,7 @@ annual_interest_rate = 7.350 / 100
 monthly_interest_rate = annual_interest_rate / 12
 loan_term_years = 30
 number_of_payments = loan_term_years * 12
-down_payment_percentage = 5 / 100
+# down_payment_percentage = 5 / 100
 dti_ratio = 36 / 100
 annual_property_tax_rate = 1.25 / 100
 annual_homeowners_insurance_rate = 0.25 / 100
@@ -28,13 +28,13 @@ def adjusted_interest_rate(credit_score, base_rate):
 
     return base_rate + rate_increase
 
-def mortgage_calc_with_credit_score(home_price, credit_score):
+def mortgage_calc_with_credit_score(home_price, credit_score, down_payment_percentage):
     # Adjust the annual interest rate based on credit score
     adjusted_annual_interest_rate = adjusted_interest_rate(credit_score, annual_interest_rate)
     adjusted_monthly_interest_rate = adjusted_annual_interest_rate / 12
 
     # Calculate loan amounts
-    loan_amounts = home_price * (1 - down_payment_percentage)
+    loan_amounts = home_price * (1 - (down_payment_percentage / 100))
 
     # Calculate monthly mortgage payments
     monthly_payments = (loan_amounts * adjusted_monthly_interest_rate * (1 + adjusted_monthly_interest_rate)**number_of_payments) / \
@@ -64,26 +64,25 @@ def mortgage_calc_with_credit_score(home_price, credit_score):
     }
 
 
-mortgage_calc_with_credit_score(300000, 680)
-
 # Streamlit App
 
 st.title("Mortgage Calculator with Credit Score")
 
 # User input
 home_price = st.slider("Home Price", 100_000, 500_000, 300_000, 5_000)
-credit_score = st.slider("Credit Score", 300, 850, 700, 5)
+credit_score = st.slider("Credit Score", 600, 850, 700, 5)
+down_payment_percentage = st.slider("Down Payment", 3.5, 20.0, 3.5, 0.5)
 
 # Calculate mortgage details
-results = mortgage_calc_with_credit_score(home_price, credit_score)
+results = mortgage_calc_with_credit_score(home_price, credit_score, down_payment_percentage)
 
 # Display results
 st.subheader("Results")
-st.write(f"Adjusted Annual Interest Rate: {results['adjusted annual interest rate:']}%")
 st.write(f"Loan Amount: ${results['loan amount: ']:,.2f}")
 st.write(f"Yearly Gross Income Required: ${results['yearly gross income:']:,.2f}")
 st.write(f"Total Monthly Gross Income Required: ${results['total monthly gross income:']:,.2f}")
 st.write(f"Total Monthly Payments (including taxes and insurance): ${results['total monthly payments:']:,.2f}")
+st.write(f"Adjusted Annual Interest Rate: {results['adjusted annual interest rate:']}%")
 
 # # Calculate individual components of monthly payments
 # # Calculate individual components of monthly payments
