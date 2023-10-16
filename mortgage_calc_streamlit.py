@@ -9,7 +9,7 @@ monthly_interest_rate = annual_interest_rate / 12
 loan_term_years = 30
 number_of_payments = loan_term_years * 12
 # down_payment_percentage = 5 / 100
-dti_ratio = 36 / 100
+# dti_ratio = 36 / 100
 annual_property_tax_rate = 1.25 / 100
 annual_homeowners_insurance_rate = 0.25 / 100
 
@@ -28,7 +28,7 @@ def adjusted_interest_rate(credit_score, base_rate):
 
     return base_rate + rate_increase
 
-def mortgage_calc_with_credit_score(home_price, credit_score, down_payment_percentage):
+def mortgage_calc_with_credit_score(home_price, credit_score, down_payment_percentage, dti_ratio):
     # Adjust the annual interest rate based on credit score
     adjusted_annual_interest_rate = adjusted_interest_rate(credit_score, annual_interest_rate)
     adjusted_monthly_interest_rate = adjusted_annual_interest_rate / 12
@@ -48,7 +48,7 @@ def mortgage_calc_with_credit_score(home_price, credit_score, down_payment_perce
     total_monthly_payments = monthly_payments + monthly_property_tax + monthly_homeowners_insurance
 
     # Calculate minimum monthly and yearly gross incomes
-    monthly_gross_incomes = total_monthly_payments / dti_ratio
+    monthly_gross_incomes = total_monthly_payments / (dti_ratio / 100)
     yearly_gross_incomes = monthly_gross_incomes * 12
 
     
@@ -72,9 +72,10 @@ st.title("Mortgage Calculator with Credit Score")
 home_price = st.slider("Home Price", 100_000, 500_000, 300_000, 5_000)
 credit_score = st.slider("Credit Score", 600, 850, 700, 5)
 down_payment_percentage = st.slider("Down Payment", 3.5, 20.0, 3.5, 0.5)
+dti_ratio = st.slider("DTI Ratio", 28, 43, 36, 1)
 
 # Calculate mortgage details
-results = mortgage_calc_with_credit_score(home_price, credit_score, down_payment_percentage)
+results = mortgage_calc_with_credit_score(home_price, credit_score, down_payment_percentage, dti_ratio)
 
 # Display results
 st.subheader("Results")
