@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 
 # Define constants
-annual_interest_rate = 7.350 / 100
+annual_interest_rate = 6.827 / 100
 monthly_interest_rate = annual_interest_rate / 12
 loan_term_years = 30
 number_of_payments = loan_term_years * 12
