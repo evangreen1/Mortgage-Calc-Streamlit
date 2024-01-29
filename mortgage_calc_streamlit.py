@@ -61,7 +61,7 @@ home_price = st.slider("Home Price", 100_000, 500_000, 300_000, 5_000)
 credit_score = st.slider("Credit Score", 600, 850, 700, 5)
 down_payment_percentage = st.slider("Down Payment", 3.5, 20.0, 3.5, 0.5)
 dti_ratio = st.slider("DTI Ratio", 28, 43, 36, 1)
-annual_interest_rate = st.slider("Annual Interest Rate", 1.0, 10.0, 6.83, 0.1)  # Now set by the user
+annual_interest_rate = st.slider("Annual Interest Rate", 1.0, 10.0, 7.00, 0.1)  # Now set by the user
 
 # Calculate mortgage details
 results = mortgage_calc_with_credit_score(home_price, credit_score, down_payment_percentage, dti_ratio, annual_interest_rate)
